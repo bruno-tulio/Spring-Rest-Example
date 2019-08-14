@@ -1,4 +1,4 @@
-package com.spring.revisao
+package com.homeio.forum
 
 import org.junit.Test
 import org.junit.runner.RunWith

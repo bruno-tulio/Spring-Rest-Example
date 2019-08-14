@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.spring") version "1.2.71"
 }
 
-group = "com.spring"
+group = "com.forum"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 

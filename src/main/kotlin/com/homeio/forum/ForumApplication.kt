@@ -1,11 +1,11 @@
-package com.spring.revisao
+package com.homeio.forum
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class RevisaoApplication
+class ForumApplication
 
 fun main(args: Array<String>) {
-    runApplication<RevisaoApplication>(*args)
+    runApplication<ForumApplication>(*args)
 }
