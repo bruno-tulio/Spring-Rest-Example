@@ -1,6 +1,15 @@
 package com.homeio.forum.model
 
-data class Usuario(val id: Long,
-                   val nome: String,
-                   val usuario: String ,
-                   val senha: String)
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+
+@Entity
+data class Usuario(
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        val id: Long,
+        val nome: String,
+        val usuario: String,
+        val senha: String)
