@@ -1,4 +1,4 @@
-package com.homeio.forum.model
+package com.homeio.forum.v1.model
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

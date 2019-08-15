@@ -1,4 +1,4 @@
-package com.homeio.forum.repository.filter
+package com.homeio.forum.v1.repository.filter
 
 import java.time.LocalDate
 

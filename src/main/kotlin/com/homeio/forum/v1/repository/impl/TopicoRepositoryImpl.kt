@@ -1,8 +1,8 @@
-package com.homeio.forum.repository.impl
+package com.homeio.forum.v1.repository.impl
 
-import com.homeio.forum.model.Topico
-import com.homeio.forum.repository.filter.TopicoFilter
-import com.homeio.forum.repository.query.TopicoQuery
+import com.homeio.forum.v1.model.Topico
+import com.homeio.forum.v1.repository.filter.TopicoFilter
+import com.homeio.forum.v1.repository.query.TopicoQuery
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.LocalDateTime
 import javax.persistence.EntityManager

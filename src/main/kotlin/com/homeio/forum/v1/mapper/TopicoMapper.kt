@@ -1,7 +1,7 @@
-package com.homeio.forum.mapper
+package com.homeio.forum.v1.mapper
 
 import com.homeio.forum.v1.dto.TopicoDto
-import com.homeio.forum.model.Topico
+import com.homeio.forum.v1.model.Topico
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.Mappings

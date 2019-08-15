@@ -1,4 +1,4 @@
-package com.homeio.forum.repository.excption
+package com.homeio.forum.v1.repository.excption
 
 import java.lang.RuntimeException
 

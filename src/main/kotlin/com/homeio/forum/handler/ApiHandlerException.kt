@@ -1,6 +1,6 @@
 package com.homeio.forum.handler
 
-import com.homeio.forum.repository.excption.EntityNotFoundException
+import com.homeio.forum.v1.repository.excption.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.MessageSource
 import org.springframework.context.NoSuchMessageException

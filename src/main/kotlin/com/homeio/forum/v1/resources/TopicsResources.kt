@@ -1,11 +1,11 @@
 package com.homeio.forum.v1.resources
 
 import com.homeio.forum.v1.dto.TopicoDto
-import com.homeio.forum.mapper.TopicoMapper
-import com.homeio.forum.model.Topico
-import com.homeio.forum.repository.TopicoRepository
-import com.homeio.forum.repository.excption.EntityNotFoundException
-import com.homeio.forum.repository.filter.TopicoFilter
+import com.homeio.forum.v1.mapper.TopicoMapper
+import com.homeio.forum.v1.model.Topico
+import com.homeio.forum.v1.repository.TopicoRepository
+import com.homeio.forum.v1.repository.excption.EntityNotFoundException
+import com.homeio.forum.v1.repository.filter.TopicoFilter
 import com.homeio.forum.v1.VersionV1Resources
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
