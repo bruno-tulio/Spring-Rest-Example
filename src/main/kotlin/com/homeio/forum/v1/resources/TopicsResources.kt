@@ -22,29 +22,30 @@ class TopicsResources {
     private lateinit var topicoRepository: TopicoRepository
 
     @GetMapping
-    fun get(topicoFilter: TopicoFilter): ResponseEntity<List<TopicoDto>?> {
-        return ResponseEntity.ok(topicoRepository.findAllFilter(topicoFilter).let { topicos -> topicos?.map { TopicoMapper.INSTANCE.topicoToTopicoDTO(it) } ?: listOf() })
+    fun get(topicoFilter: TopicoFilter): ResponseEntity<Any> {
+        return topicoRepository
+                .findAllFilter(topicoFilter).let { topicos -> ResponseEntity.ok(TopicoMapper.INSTANCE.mapToTopicosDto(topicos)) }
     }
 
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Long): ResponseEntity<Topico> {
-        return ResponseEntity.ok(topicoRepository.findById(id).orElseThrow {  EntityNotFoundException("Topico não existe") })
+    fun get(@PathVariable id: Long): ResponseEntity<Any> {
+        return topicoRepository.findById(id).orElseThrow { EntityNotFoundException("Topico não existe") }.let {
+            ResponseEntity.ok(TopicoMapper.INSTANCE.topicoToTopicoDetalheDTO(it))
+        }
+
     }
 
     @PostMapping
     fun salvar(@RequestBody @Valid topico: Topico, uriComponentsBuilder: UriComponentsBuilder): ResponseEntity<Any> {
-        val topico  = topicoRepository.save(topico)
+        val topico = topicoRepository.save(topico)
         val uri = uriComponentsBuilder.path("topicos/{codigo}").buildAndExpand(topico.id).toUri()
-        return ResponseEntity.created(uri).body(TopicoMapper.INSTANCE.topicoToTopicoDTO(topico))
-
+        return ResponseEntity.created(uri).body(TopicoMapper.INSTANCE.mapToTopicoDto(topico))
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id :Long, @RequestBody @Valid topico: Topico): ResponseEntity<Any> {
-
-        val topicoExistente = topicoRepository.findById(id).orElseThrow {  EntityNotFoundException("Topico não existe") }
+    fun update(@PathVariable id: Long, @RequestBody @Valid topico: Topico): ResponseEntity<Any> {
+        val topicoExistente = topicoRepository.findById(id).orElseThrow { EntityNotFoundException("Topico não existe") }
         val topicoUpdate = topico.copy(id = topicoExistente.id)
-
         topicoRepository.save(topicoUpdate)
         return ResponseEntity.noContent().build()
     }

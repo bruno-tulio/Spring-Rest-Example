@@ -13,7 +13,7 @@ class TopicoRepositoryImpl : TopicoQuery{
     @Autowired
     private lateinit var manager: EntityManager
 
-    override fun findAllFilter(topicoFilter: TopicoFilter): List<Topico>? {
+    override fun findAllFilter(topicoFilter: TopicoFilter): List<Topico> {
 
         val criteriaBuilder = manager.criteriaBuilder
         val criteriaQuery = criteriaBuilder.createQuery(Topico::class.java)

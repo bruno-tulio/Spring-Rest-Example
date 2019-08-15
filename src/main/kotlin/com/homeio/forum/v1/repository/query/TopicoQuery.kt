@@ -5,5 +5,5 @@ import com.homeio.forum.v1.repository.filter.TopicoFilter
 
 interface TopicoQuery {
 
-    fun findAllFilter(topicoFilter: TopicoFilter): List<Topico>?
+    fun findAllFilter(topicoFilter: TopicoFilter): List<Topico>
 }

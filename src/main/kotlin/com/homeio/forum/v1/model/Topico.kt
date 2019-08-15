@@ -33,6 +33,9 @@ data class Topico(
         val curso: Curso?,
 
         @OneToMany(mappedBy = "topico")
-        val resposta: List<Resposta> = listOf()){
+        val respostas: List<Resposta> = listOf()
+        ){
 
+        val autorDescricao : String?  get() { return    autor?.nome
+        }
 }
