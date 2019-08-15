@@ -1,4 +1,4 @@
-package com.homeio.forum.resources.v1
+package com.homeio.forum.v1
 
 
 class VersionV1Resources {

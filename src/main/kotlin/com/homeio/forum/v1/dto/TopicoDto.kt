@@ -1,4 +1,4 @@
-package com.homeio.forum.dto
+package com.homeio.forum.v1.dto
 
 import java.time.LocalDateTime
 
