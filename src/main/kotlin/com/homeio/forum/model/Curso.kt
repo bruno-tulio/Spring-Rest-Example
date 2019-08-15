@@ -8,7 +8,7 @@ import javax.persistence.Id
 @Entity
 data class Curso(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long,
-        val nome: String,
-        val categoria: String)
+        val nome: String = "",
+        val categoria: String= "")

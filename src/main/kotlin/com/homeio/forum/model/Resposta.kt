@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 data class Resposta (
                 @Id
-                @GeneratedValue(strategy = GenerationType.AUTO)
+                @GeneratedValue(strategy = GenerationType.IDENTITY)
                 val id: Long,
                 val mensagem: String,
                 @ManyToOne

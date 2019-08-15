@@ -8,7 +8,7 @@ import javax.persistence.Id
 @Entity
 data class Usuario(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long,
         val nome: String,
         val usuario: String,
