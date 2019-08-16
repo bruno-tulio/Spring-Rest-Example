@@ -37,24 +37,6 @@ class StatelessAuthenticationFilter(private val jwtService: JWTService,
         }
     }
 
-    //: OncePerRequestFilter(){
-    /* override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
-         try {
-             val token = authorization(request as HttpServletRequest)
-             token?.let {
-                 val authenticationToken = renderAuthentication(token)
-                 SecurityContextHolder.getContext().authentication = authenticationToken
-             }
-             filterChain.doFilter(request, response)
-             SecurityContextHolder.getContext().authentication =null
-         }catch (e: Exception){
-             SecurityContextHolder.clearContext()
-             (response as HttpServletResponse).status = HttpServletResponse.SC_UNAUTHORIZED
-         }
-     }*/
-
-
-
 
     fun renderAuthentication(token: String?): Authentication {
         val idUsuario = jwtService.getSuject(token).toLong()
