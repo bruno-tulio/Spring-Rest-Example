@@ -43,13 +43,18 @@ class SecurityConfig : WebSecurityConfigurerAdapter(){
 
     //mapaamento recursos web
     override fun configure(web: WebSecurity) {
-
+        web.ignoring()
+                .antMatchers("/**.html",
+                        "/v2/api-docs", "/webjars/**",
+                        "/configuration/**", "/swagger-resources/**",
+                        "/css/**", "/**.ico", "/js/**", "/img/**");
     }
 
     //mapaamento url permisoes
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/*/topicos").permitAll()
                 .antMatchers(HttpMethod.GET, "/*/topicos/*").permitAll()
                 .anyRequest().authenticated()

@@ -30,7 +30,7 @@ class TopicosResources {
         return ResponseEntity.ok(topicoService.findAllFilterPageable(topicoFilter, pageable))
     }
 
-    @Cacheable(value = "topicoPorId", key = "#id")
+    @Cacheable(value = ["topicoPorId"], key = "#id")
     @GetMapping("/{id}")
     fun get(@PathVariable id: Long): ResponseEntity<Any> {
         return ResponseEntity.ok(topicoService.findOneDetalhe(id))

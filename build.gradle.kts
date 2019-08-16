@@ -42,6 +42,11 @@ dependencies {
     implementation("org.ehcache:ehcache:3.8.0")
     implementation("javax.cache:cache-api:1.1.1")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("de.codecentric:spring-boot-admin-starter-client:2.1.6")
+
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+    
 }
 
 tasks.withType<KotlinCompile> {
