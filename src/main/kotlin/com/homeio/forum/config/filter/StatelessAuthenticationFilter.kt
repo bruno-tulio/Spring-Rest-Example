@@ -8,6 +8,7 @@ import com.homeio.forum.service.JWTService
 import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.filter.GenericFilterBean
@@ -41,7 +42,9 @@ class StatelessAuthenticationFilter(private val jwtService: JWTService,
     fun renderAuthentication(token: String?): Authentication {
         val idUsuario = jwtService.getSuject(token).toLong()
         val usuario = usuarioRepository.getOne(idUsuario)
-        return UserAuthentication(AppUser(usuario, hashSetOf()))
+        val permissoes = usuarioRepository.getPermissoes(idUsuario)
+        return UserAuthentication(AppUser(usuario, permissoes.map {  SimpleGrantedAuthority(it.toUpperCase())
+        }.toSet()))
 
 
     }
