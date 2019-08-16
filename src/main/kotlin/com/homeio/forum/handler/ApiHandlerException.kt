@@ -7,6 +7,8 @@ import org.springframework.context.NoSuchMessageException
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.validation.BindException
 import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -32,10 +34,25 @@ class ApiHandlerException {
         return error(HttpStatus.BAD_REQUEST, errorsDetalhes)
     }
 
+    @ExceptionHandler(BindException::class)
+    fun handlerBindException(ex: BindException): ResponseEntity<Any> {
+        val errorsDetalhes=  ex.bindingResult
+                .fieldErrors
+                .map { createErroDetalhe(it) }
+
+        return error(HttpStatus.BAD_REQUEST, errorsDetalhes)
+    }
+
 
     @ExceptionHandler(EntityNotFoundException::class)
     fun handlerEntityNotFoundException(ex: EntityNotFoundException): ResponseEntity<Any> {
         return error(HttpStatus.NOT_FOUND, ErrorReponse.ErrorDetalhe(mensagem = ex.message!!))
+    }
+
+
+    @ExceptionHandler(UsernameNotFoundException::class)
+    fun handlerUsernameNotFoundException(ex: UsernameNotFoundException): ResponseEntity<Any> {
+        return error(HttpStatus.UNAUTHORIZED, ErrorReponse.ErrorDetalhe(mensagem ="Usuario e/ou senha inválida"))
     }
 
     private fun error(status: HttpStatus, error: ErrorReponse.ErrorDetalhe): ResponseEntity<Any> {

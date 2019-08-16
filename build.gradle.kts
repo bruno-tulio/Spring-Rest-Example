@@ -27,6 +27,8 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.mapstruct:mapstruct-jdk8:1.3.0.Final")
     kapt("org.mapstruct:mapstruct-processor:1.3.0.Final")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -37,6 +39,9 @@ dependencies {
     implementation("com.h2database:h2:1.4.199")
     implementation("org.flywaydb:flyway-core:5.2.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.ehcache:ehcache:3.8.0")
+    implementation("javax.cache:cache-api:1.1.1")
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
 }
 
 tasks.withType<KotlinCompile> {

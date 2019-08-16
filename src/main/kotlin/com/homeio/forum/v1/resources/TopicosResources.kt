@@ -7,7 +7,11 @@ import com.homeio.forum.v1.repository.TopicoRepository
 import com.homeio.forum.v1.repository.excption.EntityNotFoundException
 import com.homeio.forum.v1.repository.filter.TopicoFilter
 import com.homeio.forum.v1.VersionV1Resources
+import com.homeio.forum.v1.service.TopicoService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
@@ -16,37 +20,39 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("${VersionV1Resources.VERSION}/topicos")
-class TopicsResources {
+class TopicosResources {
 
     @Autowired
-    private lateinit var topicoRepository: TopicoRepository
+    private lateinit var topicoService: TopicoService
 
     @GetMapping
-    fun get(topicoFilter: TopicoFilter): ResponseEntity<Any> {
-        return topicoRepository
-                .findAllFilter(topicoFilter).let { topicos -> ResponseEntity.ok(TopicoMapper.INSTANCE.mapToTopicosDto(topicos)) }
+    fun get(topicoFilter: TopicoFilter, @PageableDefault(size = 10) pageable: Pageable): ResponseEntity<Any> {
+        return ResponseEntity.ok(topicoService.findAllFilterPageable(topicoFilter, pageable))
     }
 
+    @Cacheable(value = "topicoPorId", key = "#id")
     @GetMapping("/{id}")
     fun get(@PathVariable id: Long): ResponseEntity<Any> {
-        return topicoRepository.findById(id).orElseThrow { EntityNotFoundException("Topico não existe") }.let {
-            ResponseEntity.ok(TopicoMapper.INSTANCE.topicoToTopicoDetalheDTO(it))
-        }
+        return ResponseEntity.ok(topicoService.findOneDetalhe(id))
 
     }
 
     @PostMapping
     fun salvar(@RequestBody @Valid topico: Topico, uriComponentsBuilder: UriComponentsBuilder): ResponseEntity<Any> {
-        val topico = topicoRepository.save(topico)
-        val uri = uriComponentsBuilder.path("topicos/{codigo}").buildAndExpand(topico.id).toUri()
-        return ResponseEntity.created(uri).body(TopicoMapper.INSTANCE.mapToTopicoDto(topico))
+        val topicoDto = topicoService.save(topico)
+        val uri = uriComponentsBuilder.path("topicos/{codigo}").buildAndExpand(topicoDto.id).toUri()
+        return ResponseEntity.created(uri).body(topicoDto)
     }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Long, @RequestBody @Valid topico: Topico): ResponseEntity<Any> {
-        val topicoExistente = topicoRepository.findById(id).orElseThrow { EntityNotFoundException("Topico não existe") }
-        val topicoUpdate = topico.copy(id = topicoExistente.id)
-        topicoRepository.save(topicoUpdate)
+        topicoService.update(id, topico)
+        return ResponseEntity.noContent().build()
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: Long): ResponseEntity<Any>{
+        topicoService.delete(id)
         return ResponseEntity.noContent().build()
     }
 

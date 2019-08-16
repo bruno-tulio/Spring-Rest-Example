@@ -1,5 +1,6 @@
 package com.homeio.forum.v1.model
 
+import com.homeio.forum.model.Usuario
 import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.NotBlank

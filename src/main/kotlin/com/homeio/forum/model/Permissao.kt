@@ -1,4 +1,4 @@
-package com.homeio.forum.v1.model
+package com.homeio.forum.model
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -6,10 +6,10 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-data class Usuario(
+class Permissao (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long,
         val nome: String,
-        val usuario: String,
-        val senha: String)
+        val descricao: String
+)
